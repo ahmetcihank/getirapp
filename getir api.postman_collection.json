@@ -1,0 +1,309 @@
+{
+	"info": {
+		"_postman_id": "422d6015-3676-47c9-8c8f-d5466a108a8d",
+		"name": "getir api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"cihan\",\n    \"password\":\"1234\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/login",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "insert book",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjaWhhbiIsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX0NVU1RPTUVSIn0seyJhdXRob3JpdHkiOiJST0xFX1NVUEVSVVNFUiJ9LHsiYXV0aG9yaXR5IjoicmVhZCJ9LHsiYXV0aG9yaXR5Ijoid3JpdGUifV0sImlhdCI6MTYzODY1MTYwMH0.ZQgRlY9RJ6GKh_ycDMSDk-qUBSuWRtfaGs0pY7zIS4U",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"zambak1\",\n    \"author\": \"tolstoy1\",\n    \"stockCount\": 21,\n    \"price\": 23\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/book/insert",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"book",
+						"insert"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update stock",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjaWhhbiIsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX0NVU1RPTUVSIn0seyJhdXRob3JpdHkiOiJST0xFX1NVUEVSVVNFUiJ9LHsiYXV0aG9yaXR5IjoicmVhZCJ9LHsiYXV0aG9yaXR5Ijoid3JpdGUifV0sImlhdCI6MTYzODY1MTYwMH0.ZQgRlY9RJ6GKh_ycDMSDk-qUBSuWRtfaGs0pY7zIS4U",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"zambak1\",\n    \"author\": \"tolstoy1\",\n    \"stockCount\": 25\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/book/update-stock",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"book",
+						"update-stock"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createorder",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjaWhhbiIsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX0NVU1RPTUVSIn0seyJhdXRob3JpdHkiOiJST0xFX1NVUEVSVVNFUiJ9LHsiYXV0aG9yaXR5IjoicmVhZCJ9LHsiYXV0aG9yaXR5Ijoid3JpdGUifV0sImlhdCI6MTYzODc0ODgwMH0.gh6ckvMHNlhEa_EWnfTNs_uzAOknmLyzEh-ck9pgKbI",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\n        \"cartItemDtos\":[\n            {\n                \"bookId\":8,\n                \"count\":2\n            },\n            {\n                \"bookId\":8,\n                \"count\":2\n            }\n        ]\n    \n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/productOrder/create-productOrder",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"productOrder",
+						"create-productOrder"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "order by id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjaWhhbiIsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX0NVU1RPTUVSIn0seyJhdXRob3JpdHkiOiJST0xFX1NVUEVSVVNFUiJ9LHsiYXV0aG9yaXR5IjoicmVhZCJ9LHsiYXV0aG9yaXR5Ijoid3JpdGUifV0sImlhdCI6MTYzODc0ODgwMH0.gh6ckvMHNlhEa_EWnfTNs_uzAOknmLyzEh-ck9pgKbI",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/productOrder/9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"productOrder",
+						"9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get order by date ",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjaWhhbiIsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX0NVU1RPTUVSIn0seyJhdXRob3JpdHkiOiJST0xFX1NVUEVSVVNFUiJ9LHsiYXV0aG9yaXR5IjoicmVhZCJ9LHsiYXV0aG9yaXR5Ijoid3JpdGUifV0sImlhdCI6MTYzODc0ODgwMH0.gh6ckvMHNlhEa_EWnfTNs_uzAOknmLyzEh-ck9pgKbI",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/productOrder/date?startDate=2020-11-01T09:18:18&endDate=2022-04-01T09:18:18",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"productOrder",
+						"date"
+					],
+					"query": [
+						{
+							"key": "startDate",
+							"value": "2020-11-01T09:18:18"
+						},
+						{
+							"key": "endDate",
+							"value": "2022-04-01T09:18:18"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "stats",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjaWhhbiIsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX0NVU1RPTUVSIn0seyJhdXRob3JpdHkiOiJST0xFX1NVUEVSVVNFUiJ9LHsiYXV0aG9yaXR5IjoicmVhZCJ9LHsiYXV0aG9yaXR5Ijoid3JpdGUifV0sImlhdCI6MTYzODY1MTYwMH0.ZQgRlY9RJ6GKh_ycDMSDk-qUBSuWRtfaGs0pY7zIS4U",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/productOrder/statistics/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"productOrder",
+						"statistics",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "register",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"test12\",\n    \"password\":\"1234\",\n    \"name\":\"deneme2\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"register"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
