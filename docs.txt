@@ -1,0 +1,218 @@
+
+Tech stack:
+
+Spring boot, PostgreSql, Spring Data, Lombok, Google Guava library, Spring Security, jwt
+----------------------------------------------------------------------------------------------------
+
+
+For starting app:
+1-)Clone the project
+2-)docker network create getirnetwork
+3-)create package:  mvn clean install -Dmaven.test.skip=true  -->Skip test because app.prop file is empty i provided credentials in docker-compose file
+4-)then simply: docker-compose up
+
+You need to get bookid and orderid, so simply run the commands for query db:
+ 1-)docker exec -it  db bash
+ 2-)psql -U admin testdb
+
+select * from book;
+select *  from product_order;
+select * from customer;
+
+----------------------------------------------------------------------------------------------------
+
+When app start i save username: cihan pass:1234 with a SUPERUSER role,  in postConstruct annotaded method. It is a con i admit it i should have done that via liquebase framework
+but in 2,5 days it is my best i think.
+
+----------------------------------------------------------------------------------------------------
+
+BaseUrl:
+    http://127.0.0.1:8080
+
+LOGIN:
+   end point : /login
+   request body: {
+                     "username": "cihan",
+                     "password":"1234"
+                 }
+   Http Method: POST
+   response body: Empty,
+   but in response header you should see Authorization key: Bearer {jwttoken}
+   use that jwt token for every single endpoint except /register endpoint that is public
+
+REGISTER:
+   end point: user/register
+   header: Content-Type: application/json
+   request body : {
+                      "username": "jack12",
+                      "password":"3112",
+                      "name":"jack"
+                  }
+
+   Http Method: POST
+   response Body:{
+                     "message": "username: test12 has been created",
+                     "timestamp": "2021-12-05T12:09:57.179+00:00"
+                 }
+
+INSERT BOOK
+   header: Content-Type: application/json
+   Authorization: Bearer {jwt}
+   role: ROLE_SUPERUSER(you shold login with username: cihan as mentioned above)
+   endpoint: /book/insert
+   requestBody: {
+                    "name":"zambak1",
+                    "author": "tolstoy1",
+                    "stockCount": 21,
+                    "price": 23
+                }
+
+    Http Method: POST
+    response Body:{
+                      "message": "book: zambak1 has been created",
+                      "timestamp": "2021-12-05T12:26:22.430+00:00"
+                  }
+
+UPDATE_BOOK _STOCK
+   header: Content-Type: application/json
+   Authorization: Bearer {jwt}
+   role: ROLE_SUPERUSER(you shold login with username: cihan as mentioned above)
+   endpoint: /book/update-stock
+   requestBody: {
+                    "name":"zambak1",
+                    "author": "tolstoy1",
+                    "stockCount": 25
+                }
+   Http Method:PUT
+   resonse body: {
+                     "message": "book stock has been updated",
+                     "timestamp": "2021-12-05T12:31:32.713+00:00"
+                 }
+
+
+CREATE_ORDER
+   header: Content-Type: application/json
+   Authorization: Bearer {jwt}
+   endpoint: /productOrder/create-productOrder
+   Method:POST
+   requestBody: {
+                        "cartItemDtos":[
+                            {
+                                "bookId":8,
+                                "count":2
+                            },
+                            {
+                                "bookId":8,
+                                "count":2
+                            }
+                        ]
+
+                }
+
+    responseBody: {
+                      "message": "ProductOrder: 5db37c86-eede-4ad0-844d-4d790c799a09 has been created",
+                      "timestamp": "2021-12-05T12:44:29.814+00:00"
+                  }
+
+
+GET_ORDER_BY_ID:
+     header:
+        Authorization: Bearer {jwt}
+     endpoint: /productOrder/{id}
+     role: ROLE_SUPERUSER(you shold login with username: cihan as mentioned above)
+     Method:GET
+     responseBody:
+        {
+            "orderNumber": "5db37c86-eede-4ad0-844d-4d790c799a09",
+            "createDate": "2021-12-05T12:44:29.767+00:00",
+            "totalPrice": 92.00,
+            "orderItemResponseDtos": [
+                {
+                    "bookName": "zambak1",
+                    "orderItemTotalPrice": 46.00,
+                    "itemCount": 2
+                },
+                {
+                    "bookName": "zambak1",
+                    "orderItemTotalPrice": 46.00,
+                    "itemCount": 2
+                }
+            ]
+        }
+
+
+GET_ORDERS_BY_DATE_INTERVALS:
+     header:
+        Authorization: Bearer {jwt}
+      endpoint: /productOrder/date/{id}
+      role: ROLE_SUPERUSER(you shold login with username: cihan as mentioned above)
+      Method:GET
+      Reqparam:startDate, Reqparam:endDate
+      sample: http://localhost:8080/productOrder/date?startDate=2020-11-01T09:18:18&endDate=2022-04-01T09:18:18 ->{formmat matters}
+      responseBody: [
+                        {
+                            "orderNumber": "5db37c86-eede-4ad0-844d-4d790c799a09",
+                            "createDate": "2021-12-05T12:44:29.767+00:00",
+                            "totalPrice": 92.00,
+                            "orderItemResponseDtos": [
+                                {
+                                    "bookName": "zambak1",
+                                    "orderItemTotalPrice": 46.00,
+                                    "itemCount": 2
+                                },
+                                {
+                                    "bookName": "zambak1",
+                                    "orderItemTotalPrice": 46.00,
+                                    "itemCount": 2
+                                }
+                            ]
+                        }
+                    ]
+
+
+STATS:
+      header:
+         Authorization: Bearer {jwt}
+       endpoint: /productOrder/statistics/{userid}
+       Method:GET
+       responseBody: [
+                         {
+                             "month": "December",
+                             "totalOrderCount": 1,
+                             "totalBookCount": 4,
+                             "totalPurchasedAmount": 92.00
+                         },
+                         {
+                             "month": "November",
+                             "totalOrderCount": 0,
+                             "totalBookCount": 0,
+                             "totalPurchasedAmount": 0
+                         },
+                         .
+                         .
+                         ]
+
+USER-ORDERS:
+       header:
+         Authorization: Bearer {jwt}
+       endpoint: user/user-orders
+       Method:GET
+       note: get current logged in users orders...
+       response BODY:
+          {
+                 "orderNumber": "5db37c86-eede-4ad0-844d-4d790c799a09",
+                 "createDate": "2021-12-05T12:44:29.767+00:00",
+                 "totalPrice": 92.00,
+                 "orderItemResponseDtos": [
+                     {
+                         "bookName": "zambak1",
+                         "orderItemTotalPrice": 46.00,
+                         "itemCount": 2
+                     },
+                     {
+                         "bookName": "zambak1",
+                         "orderItemTotalPrice": 46.00,
+                         "itemCount": 2
+                     }
+                 ]
+             }
