@@ -9,11 +9,7 @@ pipeline {
       }
     }
     
-   stage("test"){
-      steps{
-
-      }
-    }
+   
     
   }
   
